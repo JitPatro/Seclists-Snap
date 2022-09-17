@@ -1,0 +1,39 @@
+name: seclists
+base: core20
+adopt-info: seclists
+summary: Collection of multiple types of security lists
+description: |
+  SecLists is the security tester's companion. It's a collection of multiple types of lists used during security assessments, collected in one place. List types include usernames, passwords, URLs, sensitive data patterns, fuzzing payloads, web shells, and many more. The goal is to enable a security tester to pull this repository onto a new testing box and have access to every type of list that may be needed.
+grade: stable
+confinement: strict
+
+icon: seclists.png
+
+license: GPL-3.0-or-later
+source-code: https://github.com/danielmiessler/SecLists
+contact: https://github.com/JitPatro
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
+
+parts:
+  seclists:
+    plugin: nil
+    source: https://github.com/danielmiessler/SecLists.git
+    stage-packages:
+      - tree
+
+    override-build: |
+      snapcraftctl set-version $(git describe --tags | cut -d- -f 1)
+      cp -r ./* $SNAPCRAFT_PART_INSTALL/
+      rm $SNAPCRAFT_PART_INSTALL/*.md
+      echo -e '#!/bin/sh\n\nset -e\n' > $SNAPCRAFT_PART_INSTALL/usr/bin/seclists
+      echo -E 'printf "\n> \033[1;4mseclists\e[0m ~ \033[3mCollection of multiple type of security lists\e[0m\n\n"' >> $SNAPCRAFT_PART_INSTALL/usr/bin/seclists
+      echo -e '\ntree /snap/seclists/current -L 1 -d --noreport -I "usr|meta|snap"' >> $SNAPCRAFT_PART_INSTALL/usr/bin/seclists
+      chmod +x $SNAPCRAFT_PART_INSTALL/usr/bin/seclists
+      
+apps:
+  seclists:
+    command: usr/bin/seclists
