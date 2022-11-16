@@ -37,3 +37,11 @@ parts:
 apps:
   seclists:
     command: usr/bin/seclists
+    
+slots:
+  wordlists:
+    interface: content
+    content: seclists
+    read:
+      - $SNAP
+
