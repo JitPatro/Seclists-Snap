@@ -1,5 +1,5 @@
 name: seclists
-base: core20
+base: core22
 adopt-info: seclists
 summary: Collection of multiple types of security lists
 description: |
@@ -26,13 +26,13 @@ parts:
       - tree
 
     override-build: |
-      snapcraftctl set-version $(git describe --tags | cut -d- -f 1)
-      cp -r ./* $SNAPCRAFT_PART_INSTALL/
-      rm $SNAPCRAFT_PART_INSTALL/*.md
-      echo -e '#!/bin/sh\n\nset -e\n' > $SNAPCRAFT_PART_INSTALL/usr/bin/seclists
-      echo -E 'printf "\n> \033[1;4mseclists\e[0m ~ \033[3mCollection of multiple type of security lists\e[0m\n\n"' >> $SNAPCRAFT_PART_INSTALL/usr/bin/seclists
-      echo -e '\ntree /snap/seclists/current -L 1 -d --noreport -I "usr|meta|snap"' >> $SNAPCRAFT_PART_INSTALL/usr/bin/seclists
-      chmod +x $SNAPCRAFT_PART_INSTALL/usr/bin/seclists
+      craftctl set version=$(git describe --tags | cut -d- -f 1)
+      cp -r ./* $CRAFT_PART_INSTALL/
+      rm $CRAFT_PART_INSTALL/*.md
+      echo -e '#!/bin/sh\n\nset -e\n' > $CRAFT_PART_INSTALL/usr/bin/seclists
+      echo -E 'printf "\n> \033[1;4mseclists\e[0m ~ \033[3mCollection of multiple type of security lists\e[0m\n\n"' >> $CRAFT_PART_INSTALL/usr/bin/seclists
+      echo -e '\ntree /snap/seclists/current -L 1 -d --noreport -I "usr|meta|snap"' >> $CRAFT_PART_INSTALL/usr/bin/seclists
+      chmod +x $CRAFT_PART_INSTALL/usr/bin/seclists
       
 apps:
   seclists:
