@@ -1,5 +1,5 @@
 name: seclists
-base: core22
+base: core24
 adopt-info: seclists
 summary: Collection of multiple types of security lists
 description: |
@@ -13,10 +13,6 @@ license: GPL-3.0-or-later
 source-code: https://github.com/danielmiessler/SecLists
 contact: https://github.com/JitPatro
 
-architectures:
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
 
 parts:
   seclists:
